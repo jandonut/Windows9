@@ -155,14 +155,13 @@
 
     let virtualFiles = [
 
-        { name: 'Willkommen.txt', content: 'Willkommen bei Windows 9© N\ Dies ist ein emulator' },
+        { name: 'LibreOfficeWriterDownloader.txt', content: 'https://limewire.com/d/7DCRk#x8YcWtyHSs' },
 
         { 
 
             name: 'Games.txt', 
 
-            content: `gebe diesen link https://limewire.com/d/aM3iY#15tKQLeZQO in einem browser ein und kopiere den text dann öffne hier den editor und füge den text ein und speichere es als games.html` 
-
+            content: ''
         }
 
     ];
@@ -269,7 +268,8 @@
 
         } else if(t === 'Internet Explorer') {
 
-            bodyHTML = `<iframe src="https://www.google.com/"></iframe>`;
+            bodyHTML = `<iframe src="https://www.google.com/search?igu=1" width="100%" height="500"></iframe>
+`;
 
         }
 
@@ -443,6 +443,5 @@
 </script>
 
 </body>
-
 
 </html>
