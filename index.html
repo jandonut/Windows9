@@ -1,447 +1,704 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
+
 
 <html lang="de">
 
+
 <head>
+
 
     <meta charset="UTF-8">
 
+
     <title>Windows 9©</title>
+
 
     <style>
 
+
         :root { --win-blue: #0078d7; }
+
 
         * { box-sizing: border-box; }
 
+
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, sans-serif; background: #000; }
+
 
         
 
+
         /* LOCKSCREEN */
+
 
         #lockscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://i.postimg.cc/5tLGx11z/lockscreen.png') no-repeat center center/cover; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; transition: transform 0.6s ease-in-out; }
 
+
         .login-box { text-align: center; background: rgba(0,0,0,0.4); padding: 30px; border-radius: 12px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); }
+
 
         .user-avatar { width: 100px; height: 100px; background: url('https://i.postimg.cc/xT84XLnr/lockscreen-flower.png') no-repeat center center/cover; border-radius: 8px; border: 2px solid white; margin-bottom: 15px; }
 
 
+
         /* DESKTOP */
+
 
         #desktop { height: 100vh; width: 100vw; background: url('https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png') no-repeat center center/cover; position: relative; }
 
+
         .window { position: absolute; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border: 1px solid #999; border-radius: 6px 6px 0 0; display: flex; flex-direction: column; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; min-width: 200px; }
+
 
         .win-head { padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; cursor: move; background: linear-gradient(to bottom, #fff, #ccc); border-bottom: 1px solid #999; }
 
+
         .win-close { background: #e81123; color: white; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+
 
         .win-body { flex: 1; background: white; margin: 2px; overflow: auto; display: flex; flex-direction: column; position: relative; }
 
+
         
+
 
         /* TASKBAR */
 
+
         #taskbar { position: absolute; bottom: 0; width: 100%; height: 40px; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); display: flex; align-items: center; padding: 0 10px; z-index: 10000; }
 
+
         .start-orb { width: 36px; height: 36px; background: radial-gradient(circle, #6eb1ff, #1b4bb1); border-radius: 50%; cursor: pointer; border: 1px solid white; }
+
 
         #clock { color: white; margin-left: auto; font-size: 11px; text-align: right; }
 
 
+
         /* START MENU */
+
 
         #start-menu { position: absolute; bottom: 42px; left: 5px; width: 280px; background: white; border: 1px solid #666; display: none; z-index: 11000; padding: 10px; border-radius: 5px; box-shadow: 0 0 20px black; }
 
+
         .start-item { padding: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 13px; }
+
 
         .start-item:hover { background: var(--win-blue); color: white; }
 
 
+
         /* FILE GRID */
+
 
         .file-grid { display: grid; grid-template-columns: repeat(auto-fill, 90px); gap: 15px; padding: 20px; }
 
+
         .file-item { text-align: center; cursor: pointer; font-size: 11px; padding: 5px; }
+
 
         .file-item:hover { background: rgba(0,120,215,0.1); border-radius: 3px; }
 
+
         
+
 
         iframe { border: none; width: 100%; height: 100%; flex: 1; }
 
+
     </style>
 
+
 </head>
+
 
 <body onclick="document.getElementById('start-menu').style.display='none'">
 
 
+
 <div id="lockscreen">
+
 
     <div class="user-avatar"></div>
 
+
     <div class="login-box">
+
 
         <div style="font-size:22px; margin-bottom:15px;">User</div>
 
+
         <input type="password" id="pass" placeholder="Kennwort" autocomplete="off" onkeydown="if(event.key==='Enter') login()" style="padding:8px; outline:none; border:1px solid #999; width: 160px;">
+
 
         <button onclick="login()" style="padding:8px 12px; cursor:pointer;">➔</button>
 
+
         <p id="hint" style="font-size:10px; color:#ccc; margin-top:15px;">Passwort: lockhtml</p>
+
 
     </div>
 
+
 </div>
+
 
 
 <div id="desktop">
 
+
     <div style="position:absolute; top:20px; left:20px; color:white; text-align:center; cursor:pointer;" ondblclick="openApp('Computer', '💻')">
+
 
         <div style="font-size:45px;">💻</div>Computer
 
+
+
     </div>
+
 
 
     <div id="taskbar">
 
+
         <div class="start-orb" onclick="event.stopPropagation(); toggleStart()"></div>
+
 
         <div id="clock"></div>
 
+
     </div>
+
 
 
     <div id="start-menu" onclick="event.stopPropagation()">
 
+
         <div class="start-item" onclick="openApp('Computer', '💻')">💻 Computer</div>
+
 
         <div class="start-item" onclick="openApp('Radio', '📻')">📻 Radio Tuner</div>
 
+
         <div class="start-item" onclick="openApp('Internet Explorer', '🌐')">🌐 Google</div>
+
 
         <div class="start-item" onclick="openApp('Rechner', '🧮')">🧮 Rechner</div>
 
+
         <div class="start-item" onclick="openApp('Paint', '🎨')">🎨 Paint</div>
+
 
         <div class="start-item" onclick="openApp('Editor', '📝')">📝 Editor</div>
 
+
         <div class="start-item" onclick="openApp('Systemsteuerung', '⚙️')">⚙️ Systemsteuerung</div>
+
 
         <hr>
 
+
         <div class="start-item" onclick="location.reload()">🔒 Abmelden</div>
 
+
     </div>
+
 
 </div>
 
 
+
 <audio id="radio-noise" loop src="https://www.soundjay.com/tv-and-radio/static-radio-01.mp3"></audio>
+
 
 <audio id="radio-stream"></audio>
 
 
+
 <script>
+
 
     let zIdx = 1000;
 
-    let currentPass = "lockhtml";
 
+    let currentPass = "lockhtml";
+    let wallPaper = 'https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png'; // Standardbild
+// Erlaubt das Ablegen von Elementen
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+
+// Speichert, welches Element gerade gezogen wird
+function dragFile(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+// Die Logik für den Papierkorb
+function dropToTrash(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const element = document.getElementById(data);
     
+    // Animation: Kleiner werden und verschwinden
+    element.style.transform = "scale(0)";
+    setTimeout(() => {
+        element.remove();
+        alert("Datei gelöscht!");
+    }, 300);
+}
+
+// Damit man Icons auf dem Desktop verschieben kann
+function dropToDesktop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const el = document.getElementById(data);
+    // Position auf dem Desktop anpassen
+    el.style.left = ev.clientX - 40 + "px";
+    el.style.top = ev.clientY - 40 + "px";
+}
+    
+
 
     let virtualFiles = [
 
-        { name: 'LibreOfficeWriterDownloader.txt', content: 'https://limewire.com/d/7DCRk#x8YcWtyHSs' },
+
+        { name: 'LibreOffice.txt', content: 'https://limewire.com/d/7DCRk#x8YcWtyHSs' },
+
 
         { 
 
+
             name: 'Games.txt', 
 
-            content: ''
+
+            content: 'hier kommen bald games'
+
         }
 
+
     ];
+
 
 
     window.onload = () => { document.getElementById('pass').value = ""; document.getElementById('pass').focus(); };
 
 
+
     function login() {
+
 
         if(document.getElementById('pass').value === currentPass) {
 
+
             document.getElementById('lockscreen').style.transform = 'translateY(-100%)';
+
 
             setTimeout(() => document.getElementById('lockscreen').style.display = 'none', 600);
 
+
         } else {
+
 
             alert("Falsches Passwort!");
 
+
             document.getElementById('pass').value = "";
+
 
         }
 
+
     }
+
 
 
     function toggleStart() {
 
+
         const m = document.getElementById('start-menu');
+
 
         m.style.display = m.style.display === 'block' ? 'none' : 'block';
 
+
     }
+
 
 
     function openApp(t, icon, fileData = null) {
 
+
         const id = 'win-' + Date.now();
+
 
         const win = document.createElement('div');
 
+
         win.className = 'window'; win.id = id; win.style.left = '100px'; win.style.top = '60px'; win.style.zIndex = ++zIdx;
+
 
         
 
+
         // Fenstergröße optimieren
 
+
         win.style.width = (t === 'Internet Explorer' || t === 'Paint' || (fileData && fileData.name.endsWith('.html'))) ? "700px" : "450px";
+
 
         win.style.height = (t === 'Internet Explorer' || t === 'Paint' || (fileData && fileData.name.endsWith('.html'))) ? "500px" : "400px";
 
 
+
         let bodyHTML = '';
+
 
         const isHTML = fileData && fileData.name.toLowerCase().endsWith('.html');
 
 
+
         if (isHTML) {
+
 
             bodyHTML = `<iframe id="frame-${id}"></iframe>`;
 
+
         } else if(t === 'Computer') {
+
 
             bodyHTML = `<div class="file-grid" id="grid-${id}"></div>`;
 
+
         } else if(t === 'Editor') {
+
 
             bodyHTML = `<div style="padding:5px; background:#eee; border-bottom:1px solid #ccc;">
 
+
                             <button onclick="saveFile('${id}')">Speichern</button> 
+
 
                             <span id="fn-${id}">${fileData ? fileData.name : 'Neu.txt'}</span>
 
+
                         </div>
+
 
                         <textarea id="tx-${id}" style="flex:1; border:none; padding:10px; font-family:monospace; outline:none; resize:none;">${fileData ? fileData.content : ''}</textarea>`;
 
+
         } else if(t === 'Systemsteuerung') {
 
-            bodyHTML = `<div style="padding:20px;"><h3>System</h3><p>Neues Passwort:</p><input type="text" id="newPass"><button onclick="currentPass=document.getElementById('newPass').value; alert('Geändert!')">OK</button></div>`;
+
+            bodyHTML = `<div style="padding:20px;"><h3>System</h3><p>Neues Passwort:</p><input type="text" id="newPass"><button onclick="currentPass=document.getElementById('newPass').value; alert('Geändert!')">OK</button>
+
+<p><strong>Hintergrundbild ändern:</strong></p>
+<input type="text" id="wallpaper-url" placeholder="Bild-URL hier einfügen..." style="width:80%;">
+<button onclick="updateWallpaper(document.getElementById('wallpaper-url').value)">Anwenden</button>
+<p>Hier ist das Original: https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png </p>
+
+</div>`;
+
 
         } else if(t === 'Radio') {
 
+
             bodyHTML = `<div style="background:#111; color:#0f0; padding:20px; text-align:center; height:100%;">
+
 
                 <div id="f-${id}" style="font-size:24px">87.50 MHz</div>
 
+
                 <input type="range" min="87.5" max="108.0" step="0.1" style="width:100%" oninput="tune('${id}', this.value)">
+
 
                 <button onclick="document.getElementById('radio-noise').play()">Power ON</button>
 
+
             </div>`;
+
 
         } else if(t === 'Rechner') {
 
+
             bodyHTML = `<div style="padding:15px; font-size:24px; text-align:right;" id="cd-${id}">0</div><div style="display:grid; grid-template-columns:repeat(4,1fr); gap:5px; padding:10px;">` + 
+
 
                 ['7','8','9','/','4','5','6','*','1','2','3','-','C','0','=','+'].map(b => `<button style="padding:10px" onclick="doCalc('${id}','${b}')">${b}</button>`).join('') + `</div>`;
 
+
         } else if(t === 'Paint') {
+
 
             bodyHTML = `<canvas id="cv-${id}" width="700" height="460" style="background:white; cursor:crosshair;"></canvas>`;
 
+
         } else if(t === 'Internet Explorer') {
 
+
             bodyHTML = `<iframe src="https://www.google.com/search?igu=1" width="100%" height="500"></iframe>
+
 `;
 
+
         }
+
 
 
         win.innerHTML = `<div class="win-head" onmousedown="focusWin('${id}'); drag(this.parentElement, event)">
 
+
             <span>${icon} ${fileData ? fileData.name : t}</span><button class="win-close" onclick="closeWin('${id}', '${t}')">×</button>
+
 
         </div><div class="win-body">${bodyHTML}</div>`;
 
+
         
+
 
         document.getElementById('desktop').appendChild(win);
 
 
+
         // HTML-Inhalt sicher nach dem Erstellen injizieren
+
 
         if (isHTML) {
 
+
             const frame = document.getElementById('frame-' + id);
+
 
             const doc = frame.contentWindow.document;
 
+
             doc.open();
+
 
             doc.write(fileData.content);
 
+
             doc.close();
+
 
         }
 
 
+
         if(t === 'Computer') refreshFiles(id);
+
 
         if(t === 'Paint') initPaint(id);
 
+
     }
+
 
 
     function refreshFiles(winId) {
 
+
         const grid = document.getElementById('grid-' + winId);
+
 
         if (!grid) return;
 
+
         grid.innerHTML = '';
+
 
         
 
+
         virtualFiles.forEach(f => {
+
 
             const isH = f.name.endsWith('.html');
 
+
             const item = document.createElement('div');
+
 
             item.className = 'file-item';
 
+
             item.innerHTML = `<div>${isH ? '🌐' : '📄'}</div><div>${f.name}</div>`;
+
 
             item.ondblclick = (e) => {
 
+
                 e.stopPropagation();
+
 
                 if(isH) {
 
+
                     openApp('App', '🚀', f);
+
 
                 } else {
 
+
                     openApp('Editor', '📝', f);
+
 
                 }
 
+
             };
+
 
             grid.appendChild(item);
 
+
         });
 
+
     }
+
 
 
     function saveFile(winId) {
 
+
         const text = document.getElementById('tx-' + winId).value;
+
 
         let name = document.getElementById('fn-' + winId).innerText;
 
+
         if(name === 'Neu.txt') name = prompt("Name:", "Datei.html") || "Neu.txt";
+
 
         const exist = virtualFiles.find(f => f.name === name);
 
+
         if(exist) exist.content = text; else virtualFiles.push({name, content: text});
+
 
         alert("Gespeichert!");
 
+
         document.querySelectorAll('[id^="grid-"]').forEach(g => refreshFiles(g.id.replace('grid-', '')));
 
+
     }
+
 
 
     function closeWin(id, type) {
 
+
         if(type === 'Radio') { document.getElementById('radio-noise').pause(); document.getElementById('radio-stream').pause(); }
+
 
         document.getElementById(id).remove();
 
+
     }
+
 
 
     function tune(id, v) {
 
+
         const f = parseFloat(v).toFixed(2); document.getElementById('f-'+id).innerText = f + " MHz";
+
 
         const n = document.getElementById('radio-noise'); const s = document.getElementById('radio-stream');
 
+
         const urls = {"97.80": "https://rbrs-live.cast.addradio.de/rbrs/live/mp3/high", "102.40": "https://wdr-1live-live.icecastssl.wdr.de/wdr/1live/live/mp3/128/stream.mp3", "101.10": "https://swr-swr3-live.cast.addradio.de/swr/swr3/live/mp3/128/stream.mp3"};
+
 
         if(urls[f]) { s.src = urls[f]; s.play(); n.volume = 0; } else { s.pause(); n.volume = 0.2; }
 
+
     }
+
 
 
     function doCalc(id, b) {
 
+
         const d = document.getElementById('cd-'+id);
+
 
         if(b==='C') d.innerText='0'; 
 
+
         else if(b==='=') { try { d.innerText = eval(d.innerText); } catch { d.innerText = "Error"; } } 
+
 
         else d.innerText=(d.innerText==='0'?b:d.innerText+b);
 
+
     }
+
 
 
     function initPaint(id) {
 
+
         const c = document.getElementById('cv-'+id); const ctx = c.getContext('2d');
+
 
         let d = false; c.onmousedown = () => d = true; c.onmouseup = () => { d = false; ctx.beginPath(); };
 
+
         c.onmousemove = (e) => { if(!d) return; ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke(); ctx.beginPath(); ctx.moveTo(e.offsetX, e.offsetY); };
 
+
     }
+
 
 
     function drag(el, e) {
 
+
         let p3=e.clientX, p4=e.clientY;
+
 
         document.onmousemove = (e) => { el.style.top = (el.offsetTop-(p4-e.clientY))+"px"; el.style.left = (el.offsetLeft-(p3-e.clientX))+"px"; p3=e.clientX; p4=e.clientY; };
 
+
         document.onmouseup = () => document.onmousemove = null;
+
 
     }
 
 
+
     function focusWin(id) { document.getElementById(id).style.zIndex = ++zIdx; }
+
 
     
 
+
     setInterval(() => { 
+
 
         const d = new Date(); 
 
+
         document.getElementById('clock').innerHTML = d.toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) + "<br>" + d.toLocaleDateString(); 
+
 
     }, 1000);
 
+
+function updateWallpaper(newUrl) {
+    if(newUrl) {
+        wallPaper = newUrl; // Variable aktualisieren
+        document.getElementById('desktop').style.backgroundImage = `url('${wallPaper}')`;
+    }
+}
 </script>
+
 
 </body>
 
-</html>
+
+</html> 
