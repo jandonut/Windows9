@@ -7,7 +7,7 @@
         :root { --win-blue: #0078d7; }
         * { box-sizing: border-box; }
         body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; font-family: 'Segoe UI', Tahoma, sans-serif; background: #000; }
-        
+
         /* LOCKSCREEN */
         #lockscreen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: url('https://i.postimg.cc/5tLGx11z/lockscreen.png') no-repeat center center/cover; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; transition: transform 0.6s ease-in-out; }
         .login-box { text-align: center; background: rgba(0,0,0,0.4); padding: 30px; border-radius: 12px; backdrop-filter: blur(15px); border: 1px solid rgba(255,255,255,0.2); }
@@ -16,13 +16,41 @@
         /* DESKTOP */
         #desktop { height: 100vh; width: 100vw; background: url('https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png') no-repeat center center/cover; position: relative; }
 
-        /* WINDOWS - resize: both is the only addition here */
-        .window { position: absolute; background: rgba(255, 255, 255, 0.96); backdrop-filter: blur(10px); border: 1px solid #999; border-radius: 6px 6px 0 0; display: flex; flex-direction: column; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; min-width: 200px; min-height: 120px; resize: both; }
-        .win-head { padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; cursor: move; background: linear-gradient(to bottom, #fff, #ccc); border-bottom: 1px solid #999; }
+        /* WINDOWS */
+        .window { position: absolute; background: rgba(255,255,255,0.96); backdrop-filter: blur(10px); border: 1px solid #999; border-radius: 6px 6px 0 0; display: flex; flex-direction: column; z-index: 100; box-shadow: 0 10px 40px rgba(0,0,0,0.5); overflow: hidden; min-width: 200px; min-height: 120px; resize: both; }
+        .win-head { padding: 8px 10px; display: flex; justify-content: space-between; align-items: center; cursor: move; background: linear-gradient(to bottom, #fff, #ccc); border-bottom: 1px solid #999; user-select: none; }
         .win-close { background: #e81123; color: white; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
-        .win-min { background: #a9a9a9 ; color: #333; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
-        .win-max { background: #a9a9a9 ; color: #333; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+        .win-min { background: #a9a9a9; color: #333; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
+        .win-max { background: #a9a9a9; color: #333; border: none; width: 40px; height: 22px; cursor: pointer; border-radius: 3px; font-weight: bold; }
         .win-body { flex: 1; background: white; margin: 2px; overflow: auto; display: flex; flex-direction: column; position: relative; }
+
+        /* ADDRESS BAR */
+        .addr-bar { display: flex; align-items: center; gap: 5px; padding: 4px 6px; background: #f0f0f0; border-bottom: 1px solid #ccc; font-size: 12px; flex-shrink: 0; }
+        .addr-bar button { padding: 2px 8px; cursor: pointer; font-size: 11px; background: #ddd; border: 1px solid #aaa; border-radius: 2px; }
+        .addr-bar button:hover { background: #c8c8c8; }
+        .addr-path { flex: 1; background: white; border: 1px solid #aaa; padding: 2px 6px; border-radius: 2px; font-size: 11px; }
+
+        /* TOOLBAR */
+        .win-toolbar { display: flex; align-items: center; gap: 4px; padding: 4px 6px; background: #f5f5f5; border-bottom: 1px solid #ddd; flex-shrink: 0; }
+        .win-toolbar button { padding: 3px 8px; font-size: 11px; cursor: pointer; background: #e0e0e0; border: 1px solid #bbb; border-radius: 2px; }
+        .win-toolbar button:hover { background: #ccc; }
+
+        /* FILE GRID */
+        .file-grid { display: flex; flex-wrap: wrap; gap: 5px; padding: 12px; align-content: flex-start; flex: 1; }
+        .file-item { text-align: center; cursor: pointer; font-size: 11px; padding: 6px 4px; width: 80px; border-radius: 3px; word-break: break-word; user-select: none; position: relative; }
+        .file-item:hover { background: rgba(0,120,215,0.12); }
+        .file-item.selected { background: rgba(0,120,215,0.25); outline: 1px solid #0078d7; }
+        .file-item .icon { font-size: 36px; line-height: 1.2; }
+        .file-item .label { font-size: 11px; margin-top: 2px; }
+
+        /* CONTEXT MENU */
+        .ctx-menu { position: fixed; background: white; border: 1px solid #999; box-shadow: 2px 2px 8px rgba(0,0,0,0.3); z-index: 99998; min-width: 160px; padding: 3px 0; border-radius: 3px; }
+        .ctx-item { padding: 6px 16px; cursor: pointer; font-size: 12px; }
+        .ctx-item:hover { background: var(--win-blue); color: white; }
+        .ctx-sep { border-top: 1px solid #ddd; margin: 3px 0; }
+
+        /* RENAME INPUT */
+        .file-item input.rename-input { width: 100%; font-size: 11px; text-align: center; border: 1px solid #0078d7; outline: none; padding: 1px 2px; }
 
         /* TASKBAR */
         #taskbar { position: absolute; bottom: 0; width: 100%; height: 40px; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px); display: flex; align-items: center; padding: 0 10px; z-index: 10000; gap: 5px; }
@@ -30,22 +58,18 @@
         #taskbar-apps { display: flex; gap: 4px; align-items: center; flex: 1; overflow: hidden; }
         .tb-btn { background: rgba(255,255,255,0.15); color: white; border: 1px solid rgba(255,255,255,0.25); padding: 3px 10px; cursor: pointer; border-radius: 3px; font-size: 12px; white-space: nowrap; font-family: 'Segoe UI', sans-serif; height: 28px; }
         .tb-btn:hover { background: rgba(255,255,255,0.3); }
-        #clock { color: white; margin-left: auto; font-size: 11px; text-align: right; }
+        #clock { color: white; margin-left: auto; font-size: 11px; text-align: right; flex-shrink: 0; }
 
         /* START MENU */
         #start-menu { position: absolute; bottom: 42px; left: 5px; width: 280px; background: white; border: 1px solid #666; display: none; z-index: 11000; padding: 10px; border-radius: 5px; box-shadow: 0 0 20px black; }
         .start-item { padding: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 13px; }
         .start-item:hover { background: var(--win-blue); color: white; }
 
-        /* FILE GRID */
-        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, 90px); gap: 15px; padding: 20px; }
-        .file-item { text-align: center; cursor: pointer; font-size: 11px; padding: 5px; }
-        .file-item:hover { background: rgba(0,120,215,0.1); border-radius: 3px; }
-
         iframe { border: none; width: 100%; height: 100%; flex: 1; }
+        textarea { flex: 1; border: none; padding: 10px; font-family: monospace; outline: none; resize: none; }
     </style>
 </head>
-<body onclick="document.getElementById('start-menu').style.display='none'">
+<body onclick="closeCtxMenu(); document.getElementById('start-menu').style.display='none'">
 
 <div id="lockscreen">
     <div class="user-avatar"></div>
@@ -58,7 +82,7 @@
 </div>
 
 <div id="desktop">
-    <div style="position:absolute; top:20px; left:20px; color:white; text-align:center; cursor:pointer;" ondblclick="openApp('Computer', '💻')">
+    <div style="position:absolute; top:20px; left:20px; color:white; text-align:center; cursor:pointer;" ondblclick="openComputer()">
         <div style="font-size:45px;">💻</div>Computer
     </div>
 
@@ -69,7 +93,7 @@
     </div>
 
     <div id="start-menu" onclick="event.stopPropagation()">
-        <div class="start-item" onclick="openApp('Computer', '💻')">💻 Computer</div>
+        <div class="start-item" onclick="openComputer()">💻 Computer</div>
         <div class="start-item" onclick="openApp('Radio', '📻')">📻 Radio Tuner</div>
         <div class="start-item" onclick="openApp('Internet Explorer', '🌐')">🌐 Google</div>
         <div class="start-item" onclick="openApp('Rechner', '🧮')">🧮 Rechner</div>
@@ -89,15 +113,34 @@
     let currentPass = "lockhtml";
     let wallPaper = 'https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png';
 
-    let virtualFiles = [
-        { name: 'LibreOffice.txt', content: 'https://limewire.com/d/7DCRk#x8YcWtyHSs' },
-        { name: 'Games.txt', content: 'hier kommen bald games' }
+    // ── Virtual File System ──────────────────────────────────────────────────
+    // Each item: { id, name, type: 'file'|'folder', parentId: null|id, content?, appType? }
+    let fsItems = [
+        // Root-level files
+        { id: 'f1', name: 'LibreOffice.txt', type: 'file', parentId: null, content: 'https://limewire.com/d/7DCRk#x8YcWtyHSs' },
+        { id: 'f2', name: 'Games.txt', type: 'file', parentId: null, content: 'hier kommen bald games' },
+        // Apps folder (pre-populated)
+        { id: 'apps-folder', name: 'Apps', type: 'folder', parentId: null },
+        { id: 'app-radio',   name: 'Radio Tuner.app',      type: 'app', parentId: 'apps-folder', appType: 'Radio',           icon: '📻' },
+        { id: 'app-ie',      name: 'Internet Explorer.app', type: 'app', parentId: 'apps-folder', appType: 'Internet Explorer',icon: '🌐' },
+        { id: 'app-calc',    name: 'Rechner.app',           type: 'app', parentId: 'apps-folder', appType: 'Rechner',          icon: '🧮' },
+        { id: 'app-paint',   name: 'Paint.app',             type: 'app', parentId: 'apps-folder', appType: 'Paint',            icon: '🎨' },
+        { id: 'app-editor',  name: 'Editor.app',            type: 'app', parentId: 'apps-folder', appType: 'Editor',           icon: '📝' },
+        { id: 'app-sys',     name: 'Systemsteuerung.app',   type: 'app', parentId: 'apps-folder', appType: 'Systemsteuerung',  icon: '⚙️' },
     ];
 
+    let nextId = 100;
+    function newId() { return 'item-' + (++nextId); }
+
+    function getChildren(parentId) {
+        return fsItems.filter(i => i.parentId === parentId);
+    }
+
+    // ── Login ────────────────────────────────────────────────────────────────
     window.onload = () => { document.getElementById('pass').value = ""; document.getElementById('pass').focus(); };
 
     function login() {
-        if(document.getElementById('pass').value === currentPass) {
+        if (document.getElementById('pass').value === currentPass) {
             document.getElementById('lockscreen').style.transform = 'translateY(-100%)';
             setTimeout(() => document.getElementById('lockscreen').style.display = 'none', 600);
         } else {
@@ -111,43 +154,228 @@
         m.style.display = m.style.display === 'block' ? 'none' : 'block';
     }
 
-    function openApp(t, icon, fileData = null) {
+    // ── Open Computer (Explorer) ─────────────────────────────────────────────
+    function openComputer(parentId = null) {
+        openExplorerWindow(parentId);
+    }
+
+    // ── Explorer Window ──────────────────────────────────────────────────────
+    function openExplorerWindow(parentId = null) {
         const id = 'win-' + Date.now();
         const win = document.createElement('div');
-        win.className = 'window'; win.id = id; win.style.left = '100px'; win.style.top = '60px'; win.style.zIndex = ++zIdx;
+        win.className = 'window';
+        win.id = id;
+        win.style.cssText = 'left:100px; top:60px; width:520px; height:400px; z-index:' + (++zIdx);
 
-        win.style.width = (t === 'Internet Explorer' || t === 'Paint' || (fileData && fileData.name.endsWith('.html'))) ? "700px" : "450px";
-        win.style.height = (t === 'Internet Explorer' || t === 'Paint' || (fileData && fileData.name.endsWith('.html'))) ? "500px" : "400px";
+        const title = parentId ? (fsItems.find(i => i.id === parentId)?.name || 'Ordner') : 'Computer';
+        const icon = parentId ? '📁' : '💻';
 
-        let bodyHTML = '';
-        const isHTML = fileData && fileData.name.toLowerCase().endsWith('.html');
+        win.innerHTML = `
+        <div class="win-head" onmousedown="focusWin('${id}'); drag(this.parentElement, event)">
+            <span id="wt-${id}">${icon} ${title}</span>
+            <div style="display:flex; gap:3px;">
+                <button class="win-min" onclick="minimizeWin('${id}')">─</button>
+                <button class="win-max" onclick="maximizeWin('${id}')">□</button>
+                <button class="win-close" onclick="closeWin('${id}')">×</button>
+            </div>
+        </div>
+        <div class="addr-bar">
+            <button onclick="explorerUp('${id}')">⬆ Hoch</button>
+            <div class="addr-path" id="ap-${id}">${parentId ? getPath(parentId) : 'Computer'}</div>
+        </div>
+        <div class="win-toolbar">
+            <button onclick="createFolder('${id}')">📁 Neuer Ordner</button>
+            <button onclick="createFile('${id}')">📄 Neue Datei</button>
+            <button onclick="refreshExplorer('${id}')">🔄 Aktualisieren</button>
+        </div>
+        <div class="win-body" style="overflow:auto; display:flex; flex-direction:column;">
+            <div class="file-grid" id="grid-${id}" 
+                oncontextmenu="explorerCtx(event,'${id}',null)"
+                ondragover="event.preventDefault()"
+                ondrop="explorerDrop(event,'${id}')"></div>
+        </div>`;
 
-        if (isHTML) {
-            bodyHTML = `<iframe id="frame-${id}"></iframe>`;
-        } else if(t === 'Computer') {
-            bodyHTML = `<div class="file-grid" id="grid-${id}"></div>`;
-        } else if(t === 'Editor') {
-            bodyHTML = `<div style="padding:5px; background:#eee; border-bottom:1px solid #ccc;">
-                            <button onclick="saveFile('${id}')">Speichern</button> 
-                            <span id="fn-${id}">${fileData ? fileData.name : 'Neu.txt'}</span>
-                        </div>
-                        <textarea id="tx-${id}" style="flex:1; border:none; padding:10px; font-family:monospace; outline:none; resize:none;">${fileData ? fileData.content : ''}</textarea>`;
-        } else if(t === 'Systemsteuerung') {
-            bodyHTML = `<div style="padding:20px;"><h3>System</h3><p>Neues Passwort:</p><input type="text" id="newPass"><button onclick="currentPass=document.getElementById('newPass').value; alert('Geändert!')">OK</button>
-<p><strong>Hintergrundbild ändern:</strong></p>
-<input type="text" id="wallpaper-url" placeholder="Bild-URL hier einfügen..." style="width:80%;">
-<button onclick="updateWallpaper(document.getElementById('wallpaper-url').value)">Anwenden</button>
-<p>Hier ist das Original: https://i.postimg.cc/zfhpvJg7/Screenshot-2026-01-30-161252.png </p>
-</div>`;
-        } else if(t === 'Radio') {
-            bodyHTML = `<div style="background:#111; color:#0f0; padding:20px; text-align:center; height:100%;">
-                <div id="f-${id}" style="font-size:24px">87.50 MHz</div>
-                <input type="range" min="87.5" max="108.0" step="0.1" style="width:100%" oninput="tune('${id}', this.value)">
-                <button onclick="document.getElementById('radio-noise').play()">Power ON</button>
-            </div>`;
-        } else if(t === 'Rechner') {
-            bodyHTML = `<div style="padding:15px; font-size:24px; text-align:right;" id="cd-${id}">0</div><div style="display:grid; grid-template-columns:repeat(4,1fr); gap:5px; padding:10px;">` + 
-                ['7','8','9','/','4','5','6','*','1','2','3','-','C','0','=','+'].map(b => `<button style="padding:10px" onclick="doCalc('${id}','${b}')">${b}</button>`).join('') + `</div>`;
+        win.dataset.parentId = parentId || '';
+        document.getElementById('desktop').appendChild(win);
+        renderExplorer(id);
+
+        const btn = document.createElement('button');
+        btn.className = 'tb-btn';
+        btn.id = 'tb-' + id;
+        btn.innerText = icon + ' ' + title;
+        btn.onclick = () => {
+            const w = document.getElementById(id);
+            if (w.style.display === 'none') { w.style.display = 'flex'; focusWin(id); }
+            else minimizeWin(id);
+        };
+        document.getElementById('taskbar-apps').appendChild(btn);
+    }
+
+    function getPath(id) {
+        const parts = [];
+        let cur = id;
+        while (cur) {
+            const item = fsItems.find(i => i.id === cur);
+            if (!item) break;
+            parts.unshift(item.name);
+            cur = item.parentId;
+        }
+        return 'Computer > ' + parts.join(' > ');
+    }
+
+    function renderExplorer(winId) {
+        const grid = document.getElementById('grid-' + winId);
+        if (!grid) return;
+        const win = document.getElementById(winId);
+        const parentId = win.dataset.parentId || null;
+        grid.innerHTML = '';
+
+        const children = getChildren(parentId === '' ? null : parentId);
+        if (children.length === 0) {
+            grid.innerHTML = '<div style="color:#999; font-size:12px; padding:20px; width:100%;">Dieser Ordner ist leer.</div>';
+            return;
+        }
+
+        children.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'file-item';
+            el.id = 'fi-' + item.id;
+            el.draggable = true;
+            el.dataset.itemId = item.id;
+
+            let iconHtml = '';
+            if (item.type === 'folder') iconHtml = '📁';
+            else if (item.type === 'app') iconHtml = item.icon || '🚀';
+            else if (item.name.endsWith('.html')) iconHtml = '🌐';
+            else iconHtml = '📄';
+
+            el.innerHTML = `<div class="icon">${iconHtml}</div><div class="label">${item.name}</div>`;
+
+            el.ondblclick = (e) => { e.stopPropagation(); openFsItem(item, winId); };
+            el.onclick = (e) => { e.stopPropagation(); selectItem(winId, el); };
+            el.oncontextmenu = (e) => { e.preventDefault(); e.stopPropagation(); selectItem(winId, el); showItemCtx(e, winId, item.id); };
+            el.ondragstart = (e) => { e.dataTransfer.setData('text/plain', item.id); };
+
+            grid.appendChild(el);
+        });
+    }
+
+    function selectItem(winId, el) {
+        document.querySelectorAll(`#grid-${winId} .file-item`).forEach(i => i.classList.remove('selected'));
+        el.classList.add('selected');
+    }
+
+    function refreshExplorer(winId) { renderExplorer(winId); }
+
+    function explorerUp(winId) {
+        const win = document.getElementById(winId);
+        const cur = win.dataset.parentId || null;
+        if (!cur) return; // already at root
+        const curItem = fsItems.find(i => i.id === cur);
+        const newParent = curItem ? (curItem.parentId || '') : '';
+        win.dataset.parentId = newParent;
+        const newTitle = newParent ? (fsItems.find(i => i.id === newParent)?.name || 'Ordner') : 'Computer';
+        document.getElementById('wt-' + winId).textContent = (newParent ? '📁' : '💻') + ' ' + newTitle;
+        document.getElementById('ap-' + winId).textContent = newParent ? getPath(newParent) : 'Computer';
+        renderExplorer(winId);
+    }
+
+    function openFsItem(item, fromWinId) {
+        if (item.type === 'folder') {
+            // Navigate into folder in same window
+            const win = document.getElementById(fromWinId);
+            win.dataset.parentId = item.id;
+            document.getElementById('wt-' + fromWinId).textContent = '📁 ' + item.name;
+            document.getElementById('ap-' + fromWinId).textContent = getPath(item.id);
+            renderExplorer(fromWinId);
+        } else if (item.type === 'app') {
+            openApp(item.appType, item.icon || '🚀');
+        } else if (item.name.toLowerCase().endsWith('.html')) {
+            openApp('App', '🚀', item);
+        } else {
+            openApp('Editor', '📝', item);
+        }
+    }
+
+    // ── Context Menus ────────────────────────────────────────────────────────
+    let activeCtxMenu = null;
+    function closeCtxMenu() {
+        if (activeCtxMenu) { activeCtxMenu.remove(); activeCtxMenu = null; }
+    }
+
+    function showCtxMenu(x, y, items) {
+        closeCtxMenu();
+        const menu = document.createElement('div');
+        menu.className = 'ctx-menu';
+        menu.style.left = x + 'px';
+        menu.style.top = y + 'px';
+        items.forEach(it => {
+            if (it === '-') {
+                const sep = document.createElement('div');
+                sep.className = 'ctx-sep';
+                menu.appendChild(sep);
+            } else {
+                const d = document.createElement('div');
+                d.className = 'ctx-item';
+                d.textContent = it.label;
+                d.onclick = (e) => { e.stopPropagation(); closeCtxMenu(); it.action(); };
+                menu.appendChild(d);
+            }
+        });
+        document.body.appendChild(menu);
+        activeCtxMenu = menu;
+    }
+
+    function explorerCtx(e, winId, itemId) {
+        e.preventDefault(); e.stopPropagation();
+        showCtxMenu(e.clientX, e.clientY, [
+            { label: '📁 Neuer Ordner', action: () => createFolder(winId) },
+            { label: '📄 Neue Textdatei', action: () => createFile(winId) },
+            '-',
+            { label: '🔄 Aktualisieren', action: () => refreshExplorer(winId) }
+        ]);
+    }
+
+    function showItemCtx(e, winId, itemId) {
+        const item = fsItems.find(i => i.id === itemId);
+        if (!item) return;
+        const menuItems = [
+            { label: '✏️ Umbenennen', action: () => renameItem(winId, itemId) },
+            { label: '🗑️ Löschen', action: () => deleteItem(winId, itemId) },
+        ];
+        if (item.type === 'folder') {
+            menuItems.unshift({ label: '📂 Öffnen', action: () => openFsItem(item, winId) });
+        } else if (item.type !== 'app') {
+            menuItems.unshift({ label: '📝 Öffnen', action: () => openFsItem(item, winId) });
+        }
+        showCtxMenu(e.clientX, e.clientY, menuItems);
+    }
+
+    // ── Create / Delete / Rename ─────────────────────────────────────────────
+    function createFolder(winId) {
+        const win = document.getElementById(winId);
+        const parentId = win.dataset.parentId || null;
+        const name = prompt('Ordnername:', 'Neuer Ordner');
+        if (!name) return;
+        fsItems.push({ id: newId(), name, type: 'folder', parentId });
+        renderExplorer(winId);
+    }
+
+    function createFile(winId) {
+        const win = document.getElementById(winId);
+        const parentId = win.dataset.parentId || null;
+        const name = prompt('Dateiname:', 'Neue Datei.txt');
+        if (!name) return;
+        const newItem = { id: newId(), name, type: 'file', parentId, content: '' };
+        fsItems.push(newItem);
+        renderExplorer(winId);
+        // Open editor right away
+        openApp('Editor', '📝', newItem);
+    }
+
+    function deleteItem(winId, itemId) {
+        if (!confirm('Wirklich löschen?')) return;
+ ,'8','9','/','4','5','6','*','1','2','3','-','C','0','=','+'].map(b => `<button style="padding:10px" onclick="doCalc('${id}','${b}')">${b}</button>`).join('') + `</div>`;
         } else if(t === 'Paint') {
             bodyHTML = `<canvas id="cv-${id}" width="700" height="460" style="background:white; cursor:crosshair;"></canvas>`;
         } else if(t === 'Internet Explorer') {
